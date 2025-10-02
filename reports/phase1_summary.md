@@ -2,7 +2,7 @@
 
 **Course:** Build a Data Mart in SQL (DLBDSPBDM01)  
 **Phase:** Conception Phase  
-**Date:** 01/10/2025  
+**Date:** 02/10/2025  
 **Student:** Nikolas Daniel Vincenti
 
 ---
@@ -153,5 +153,4 @@ The solution demonstrates a comprehensive understanding of database design princ
 ---
 
 **Document Version:** 1.0  
-**Last Updated:** [Current Date]  
-**Next Review:** [Future Date]
+**Last Updated:** 02/10/2025

@@ -2,7 +2,7 @@
 
 **Course:** Build a Data Mart in SQL (DLBDSPBDM01)  
 **Phase:** Conception Phase  
-**Date:** 02/10/2025  
+**Date:** 05/10/2025  
 **Student:** Nikolas Daniel Vincenti
 
 ---
@@ -427,4 +427,4 @@ This data dictionary provides comprehensive documentation for all attributes in 
 ---
 
 **Document Version:** 1.0  
-**Last Updated:** 02/10/2025
+**Last Updated:** 05/10/2025

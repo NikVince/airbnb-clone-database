@@ -40,7 +40,7 @@ This directory contains the project changelog and version history for the Airbnb
 
 ### Example Entry Format
 ```markdown
-## [1.2.0] - 2024-01-15
+## [1.2.0] - 2025-01-15
 
 ### Added
 - New entity: property_amenities for property features
@@ -62,7 +62,16 @@ This directory contains the project changelog and version history for the Airbnb
 
 ## Version History
 
-### [1.0.0] - 2024-01-01
+### [1.1.0] - 2025-10-05
+- **Phase 1 Completion**: ER Model design completed
+- **Added**: 25 entities with comprehensive relationships
+- **Added**: 3 triple relationships and 1 recursive relationship
+- **Added**: Complete Phase 1 deliverables in reports/phase1/
+- **Added**: ER diagram, data dictionary, and design documentation
+- **Changed**: Project status updated to reflect Phase 1 completion
+- **Changed**: Directory structure reorganized with phase-specific folders
+
+### [1.0.0] - 2025-10-02
 - Initial project setup
 - Basic project structure created
 - Cursor rules established
@@ -71,7 +80,7 @@ This directory contains the project changelog and version history for the Airbnb
 ## Future Versions
 
 ### Planned Changes
-- [ ] Phase 1: ER Model implementation
+- [x] Phase 1: ER Model implementation (Completed 2025-10-05)
 - [ ] Phase 2: Normalization and constraints
 - [ ] Phase 3: SQL implementation and queries
 - [ ] Final documentation and submission

@@ -2,7 +2,7 @@
 
 **Course:** Build a Data Mart in SQL (DLBDSPBDM01)  
 **Phase:** Conception Phase  
-**Date:** 02/10/2025  
+**Date:** 05/10/2025  
 **Student:** Nikolas Daniel Vincenti
 
 ---
@@ -313,7 +313,7 @@ This Entity Relationship Model (ERM) represents a comprehensive database design 
 | Foreign Keys | INTEGER | NOT NULL, REFERENCES | property_id |
 | Email | VARCHAR(255) | UNIQUE, NOT NULL | user@example.com |
 | Phone | VARCHAR(20) | UNIQUE, NOT NULL | +1234567890 |
-| Dates | DATETIME | NOT NULL | 2024-01-15 10:30:00 |
+| Dates | DATETIME | NOT NULL | 2025-01-15 10:30:00 |
 | Amounts | DECIMAL(10,2) | NOT NULL, >= 0 | 150.00 |
 | Ratings | INTEGER | 1-5 range | 4 |
 | Status | ENUM | Predefined values | 'active', 'inactive' |
@@ -382,4 +382,4 @@ This Entity Relationship Model (ERM) represents a comprehensive database design 
 ---
 
 **Document Version:** 1.0  
-**Last Updated:** 02/10/2025
+**Last Updated:** 05/10/2025

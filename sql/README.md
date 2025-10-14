@@ -1,0 +1,253 @@
+# Airbnb Database Implementation
+
+**Course:** Build a Data Mart in SQL (DLBDSPBDM01)  
+**Phase:** 2 - Database Implementation  
+**Student:** Nikolas Daniel Vincenti  
+**Date:** 14/10/2025  
+
+## Overview
+
+This directory contains the complete SQL implementation of the Airbnb database designed in Phase 2. The database includes 27 entities with comprehensive relationships, constraints, and sample data.
+
+## Database Structure
+
+### Entity Count
+- **Total Entities:** 27
+- **Triple Relationships:** 3
+- **Recursive Relationships:** 1
+- **Foreign Key Relationships:** 45+
+- **Constraints:** 89+ (CHECK, UNIQUE, NOT NULL)
+
+### Key Features
+- **Role-Based Architecture:** Separate guest and host profiles
+- **Multi-Role Support:** Users can be both guests and hosts
+- **Complete Normalization:** All tables in 3NF/BCNF
+- **Comprehensive Constraints:** Business rules enforced at database level
+- **Performance Optimized:** Strategic indexing for common queries
+
+## Installation Instructions
+
+### Prerequisites
+- MySQL 8.0 or higher
+- MySQL Workbench (recommended for GUI)
+- Command line access to MySQL
+
+### Step 1: Database Creation
+```bash
+# Connect to MySQL
+mysql -u root -p
+
+# Run the database creation script
+source /path/to/01_create_database.sql
+```
+
+### Step 2: Sample Data Population
+```bash
+# Run the sample data script
+source /path/to/02_sample_data.sql
+```
+
+### Step 3: Test Database Functionality
+```bash
+# Run the test queries
+source /path/to/03_test_queries.sql
+```
+
+## File Structure
+
+```
+sql/
+├── 01_create_database.sql    # Complete DDL with all 27 entities
+├── 02_sample_data.sql       # Sample data (20+ entries per table)
+├── 03_test_queries.sql      # Test queries demonstrating functionality
+└── README.md                # This documentation
+```
+
+## Database Schema
+
+### Core Domains
+
+1. **User Management Domain**
+   - `users` - Base user table with role tracking
+   - `guest_profiles` - Guest-specific attributes
+   - `host_profiles` - Host-specific attributes
+   - `user_profiles` - General user profiles
+   - `user_verification` - Identity verification
+   - `user_preferences` - User settings
+
+2. **Property Management Domain**
+   - `properties` - Property listings
+   - `property_types` - Property categories
+   - `property_amenities` - Available amenities
+   - `property_amenity_links` - Property-amenity relationships
+   - `property_photos` - Property images
+   - `property_pricing` - Pricing rules
+
+3. **Location Domain**
+   - `addresses` - Property addresses
+   - `cities` - City information
+   - `countries` - Country data
+
+4. **Booking System Domain**
+   - `bookings` - Reservation records
+   - `booking_status` - Status definitions
+   - `booking_modifications` - Change tracking
+
+5. **Financial Domain**
+   - `payments` - Payment transactions
+   - `payment_methods` - Payment options
+   - `payouts` - Host payouts
+
+6. **Review System Domain**
+   - `reviews` - User reviews
+   - `review_categories` - Review criteria
+   - `review_ratings` - Detailed ratings
+
+7. **Communication Domain**
+   - `conversations` - Message threads
+   - `messages` - Individual messages
+
+8. **System Domain**
+   - `notifications` - System notifications
+
+### Triple Relationships
+
+1. **Property-Booking-Pricing** (`property_booking_pricing`)
+   - Links properties to bookings with applied pricing rules
+
+2. **User-Booking-Review** (`user_booking_review`)
+   - Tracks user interactions with bookings and reviews
+
+3. **Booking-Payment-Payout** (`booking_payment_payout`)
+   - Complete financial transaction chain
+
+### Recursive Relationship
+
+- **User Self-Referencing:** Users can book other users' properties
+- Implemented through the booking system connecting guests to hosts
+
+## Sample Data
+
+The database includes realistic sample data:
+- **25+ countries** with major cities
+- **25+ users** with guest and host profiles
+- **20+ properties** with amenities and photos
+- **20+ bookings** with complete transaction flow
+- **20+ reviews** with detailed ratings
+- **20+ messages** in conversation threads
+
+## Test Queries
+
+The test queries demonstrate:
+- User role management and verification
+- Property listings with amenities
+- Complete booking and payment flow
+- Review system with ratings
+- Geographic distribution analysis
+- Host performance metrics
+- Communication system
+- Financial transaction tracking
+- Triple relationship functionality
+- Recursive relationship demonstration
+
+## Performance Features
+
+### Indexes
+- **Primary Key Indexes:** All tables have primary key indexes
+- **Foreign Key Indexes:** All foreign keys are indexed
+- **Composite Indexes:** Multi-column indexes for common queries
+- **Covering Indexes:** Indexes that cover frequently accessed columns
+
+### Constraints
+- **Entity Integrity:** Primary keys and NOT NULL constraints
+- **Referential Integrity:** Foreign key constraints with CASCADE/RESTRICT
+- **Domain Integrity:** CHECK constraints for business rules
+- **Unique Constraints:** Natural keys and business rules
+
+## Business Rules Implemented
+
+### User Management
+- Users can have multiple roles (guest, host, admin)
+- Guest profiles created automatically on first booking
+- Host profiles created when user applies to become host
+- Role flags must be consistent with profile existence
+
+### Property Management
+- Properties must have at least one photo
+- Pricing rules must have valid date ranges
+- Amenities linked through many-to-many relationships
+
+### Booking System
+- Check-out date must be after check-in date
+- Guest count cannot exceed property capacity
+- Bookings cannot be made for past dates
+
+### Financial System
+- Payments must be positive amounts
+- Payouts processed 24 hours after check-in
+- Transaction chain status tracked through triple relationship
+
+### Review System
+- Reviews can only be written after stay completion
+- Users cannot review themselves
+- Ratings must be between 1 and 5
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Foreign Key Constraint Violations**
+   - Ensure sample data is inserted in correct order
+   - Check that referenced records exist before inserting
+
+2. **Check Constraint Violations**
+   - Verify data meets business rule requirements
+   - Check date formats and ranges
+
+3. **Unique Constraint Violations**
+   - Ensure email addresses and phone numbers are unique
+   - Check for duplicate entries
+
+### Verification Queries
+
+```sql
+-- Check table counts
+SELECT 
+    TABLE_NAME,
+    TABLE_ROWS
+FROM information_schema.TABLES 
+WHERE TABLE_SCHEMA = 'airbnb_database'
+ORDER BY TABLE_ROWS DESC;
+
+-- Check foreign key relationships
+SELECT 
+    CONSTRAINT_NAME,
+    TABLE_NAME,
+    COLUMN_NAME,
+    REFERENCED_TABLE_NAME,
+    REFERENCED_COLUMN_NAME
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_SCHEMA = 'airbnb_database'
+AND REFERENCED_TABLE_NAME IS NOT NULL;
+```
+
+## Next Steps
+
+1. **Run Installation Scripts:** Execute all SQL files in order
+2. **Verify Data:** Check that all tables have expected row counts
+3. **Test Queries:** Run test queries to verify functionality
+4. **Take Screenshots:** Capture results for presentation
+5. **Document Results:** Prepare presentation materials
+
+## Support
+
+For technical issues or questions:
+- Check MySQL error logs
+- Verify constraint violations
+- Ensure proper data types
+- Check foreign key relationships
+
+---
+
+**Database Implementation Complete**  
+**Ready for Phase 2 Presentation**

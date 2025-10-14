@@ -469,8 +469,7 @@ CREATE TABLE reviews (
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     
     -- Constraints
-    CONSTRAINT chk_reviews_rating CHECK (rating >= 1 AND rating <= 5),
-    CONSTRAINT chk_reviews_different_users CHECK (reviewer_id != reviewee_id)
+    CONSTRAINT chk_reviews_rating CHECK (rating >= 1 AND rating <= 5)
 );
 
 -- Review ratings table
@@ -611,6 +610,22 @@ CREATE TABLE booking_payment_payout (
     -- Constraints
     CONSTRAINT chk_bpp_transaction_status CHECK (transaction_chain_status IN ('pending', 'completed', 'failed'))
 );
+
+-- ==============================================
+-- TRIGGERS FOR BUSINESS RULES
+-- ==============================================
+
+-- Trigger to ensure users cannot review themselves
+DELIMITER $$
+CREATE TRIGGER trg_reviews_different_users
+BEFORE INSERT ON reviews
+FOR EACH ROW
+BEGIN
+    IF NEW.reviewer_id = NEW.reviewee_id THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Users cannot review themselves';
+    END IF;
+END$$
+DELIMITER ;
 
 -- ==============================================
 -- INDEXES FOR PERFORMANCE

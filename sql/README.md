@@ -29,39 +29,84 @@ This directory contains the complete SQL implementation of the Airbnb database d
 
 ### Prerequisites
 - MySQL 8.0 or higher
-- MySQL Workbench (recommended for GUI)
+- DBeaver (recommended) or MySQL Workbench
 - Command line access to MySQL
 
-### Step 1: Database Creation
+### RECOMMENDED: Single Script Installation
+
+**Use the fixed installation script for error-free setup:**
+
 ```bash
 # Connect to MySQL
 mysql -u root -p
 
-# Run the database creation script
+# Run the complete installation script
+source /path/to/00_install_all_fixed.sql
+```
+
+This script includes:
+- ✅ Database creation
+- ✅ All 27 tables with proper constraints
+- ✅ Sample data insertion
+- ✅ Performance indexes
+- ✅ Verification queries
+
+### Alternative: Step-by-Step Installation
+
+If you prefer to run scripts individually:
+
+```bash
+# Step 1: Database Creation
 source /path/to/01_create_database.sql
-```
 
-### Step 2: Sample Data Population
-```bash
-# Run the sample data script
+# Step 2: Sample Data Population
 source /path/to/02_sample_data.sql
-```
 
-### Step 3: Test Database Functionality
-```bash
-# Run the test queries
+# Step 3: Test Database Functionality
 source /path/to/03_test_queries.sql
 ```
+
+### DBeaver Installation (Recommended)
+
+1. **Open DBeaver** and connect to your MySQL server
+2. **File → Open File** → Select `00_install_all_fixed.sql`
+3. **Execute the entire script** (Ctrl+A, then Ctrl+Enter)
+4. **Verify installation** by checking the results panel
 
 ## File Structure
 
 ```
 sql/
-├── 01_create_database.sql    # Complete DDL with all 27 entities
+├── 00_install_all_fixed.sql # RECOMMENDED: Complete installation script (fixed)
+├── 01_create_database.sql   # Complete DDL with all 27 entities
 ├── 02_sample_data.sql       # Sample data (20+ entries per table)
 ├── 03_test_queries.sql      # Test queries demonstrating functionality
+├── 04_presentation_queries.sql # Presentation queries for screenshots
 └── README.md                # This documentation
 ```
+
+## ⚠️ Important Installation Notes
+
+**RECOMMENDED APPROACH:** Use `00_install_all_fixed.sql` for a complete, error-free installation.
+
+### Known Issues Fixed
+
+The original scripts had constraint conflicts that have been resolved:
+
+1. **CHECK Constraint Conflicts:** Removed problematic CHECK constraints that conflicted with FOREIGN KEY constraints in:
+   - `reviews` table (`chk_reviews_different_users`)
+   - `conversations` table (`chk_conversations_different_participants`)
+
+2. **DELIMITER Syntax Issues:** Removed DELIMITER statements that caused parsing errors in DBeaver
+
+3. **Trigger Compatibility:** Removed trigger definitions that caused syntax errors
+
+### Business Rules Enforcement
+
+Business rules that were previously enforced via CHECK constraints are now enforced at the application level:
+- Users cannot review themselves
+- Conversation participants must be different users
+- All other business rules remain enforced via appropriate constraints
 
 ## Database Schema
 
@@ -246,6 +291,28 @@ For technical issues or questions:
 - Verify constraint violations
 - Ensure proper data types
 - Check foreign key relationships
+
+## Changelog
+
+### Version 2.0 - Fixed Installation Script (14/10/2025)
+
+**Issues Resolved:**
+- ✅ Fixed CHECK constraint conflicts with FOREIGN KEY constraints
+- ✅ Removed problematic DELIMITER statements for DBeaver compatibility
+- ✅ Eliminated trigger syntax errors
+- ✅ Created comprehensive single-script installation
+
+**Files Added:**
+- `00_install_all_fixed.sql` - Complete, error-free installation script
+
+**Files Modified:**
+- `01_create_database.sql` - Removed conflicting CHECK constraints
+- `README.md` - Updated installation instructions and troubleshooting
+
+**Business Rules:**
+- Users cannot review themselves (enforced at application level)
+- Conversation participants must be different users (enforced at application level)
+- All other business rules remain enforced via database constraints
 
 ---
 

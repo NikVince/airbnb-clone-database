@@ -9,10 +9,10 @@
 
 ## 1. ER Model Overview
 
-This Entity Relationship Model (ERM) represents a comprehensive database design for an Airbnb-like platform. The model contains **25 entities** with **3 triple relationships** and **1 recursive relationship**, meeting all assignment requirements.
+This Entity Relationship Model (ERM) represents a comprehensive database design for an Airbnb-like platform. The model contains **27 entities** with **3 triple relationships** and **1 recursive relationship**, meeting all assignment requirements.
 
 ### 1.1 Model Statistics
-- **Total Entities:** 25
+- **Total Entities:** 27
 - **Triple Relationships:** 3
 - **Recursive Relationships:** 1
 - **Notation:** Chen Notation
@@ -23,39 +23,67 @@ This Entity Relationship Model (ERM) represents a comprehensive database design 
 | # | Entity Name | Category | Primary Purpose |
 |---|-------------|----------|-----------------|
 | 1 | users | User Management | Core user authentication and identification |
-| 2 | user_profiles | User Management | Extended user biographical information |
-| 3 | user_verification | User Management | Identity verification and trust system |
-| 4 | user_preferences | User Management | User settings and customization |
-| 5 | properties | Property Management | Property listings and details |
-| 6 | property_types | Property Management | Property categorization (apartment, house, etc.) |
-| 7 | property_amenities | Property Management | Available amenities catalog |
-| 8 | property_amenity_links | Property Management | Property-to-amenity junction table |
-| 9 | property_photos | Property Management | Property image gallery |
-| 10 | property_pricing | Property Management | Dynamic pricing and availability rules |
-| 11 | addresses | Location | Physical address information |
-| 12 | cities | Location | City-level geographic data |
-| 13 | countries | Location | Country-level geographic data |
-| 14 | bookings | Booking System | Reservation records |
-| 15 | booking_status | Booking System | Booking state management |
-| 16 | booking_modifications | Booking System | Booking change audit trail |
-| 17 | payments | Financial | Guest payment transactions |
-| 18 | payment_methods | Financial | User payment method storage |
-| 19 | payouts | Financial | Host payout records |
-| 20 | reviews | Review System | User-to-user reviews |
-| 21 | review_categories | Review System | Review aspect categories |
-| 22 | review_ratings | Review System | Category-specific rating values |
-| 23 | conversations | Communication | Message thread management |
-| 24 | messages | Communication | Individual message records |
-| 25 | notifications | System | User notification queue |
+| 2 | guest_profiles | User Management | Guest-specific attributes and preferences |
+| 3 | host_profiles | User Management | Host-specific attributes and performance metrics |
+| 4 | user_profiles | User Management | Extended user biographical information |
+| 5 | user_verification | User Management | Identity verification and trust system |
+| 6 | user_preferences | User Management | User settings and customization |
+| 7 | properties | Property Management | Property listings and details |
+| 8 | property_types | Property Management | Property categorization (apartment, house, etc.) |
+| 9 | property_amenities | Property Management | Available amenities catalog |
+| 10 | property_amenity_links | Property Management | Property-to-amenity junction table |
+| 11 | property_photos | Property Management | Property image gallery |
+| 12 | property_pricing | Property Management | Dynamic pricing and availability rules |
+| 13 | addresses | Location | Physical address information |
+| 14 | cities | Location | City-level geographic data |
+| 15 | countries | Location | Country-level geographic data |
+| 16 | bookings | Booking System | Reservation records |
+| 17 | booking_status | Booking System | Booking state management |
+| 18 | booking_modifications | Booking System | Booking change audit trail |
+| 19 | payments | Financial | Guest payment transactions |
+| 20 | payment_methods | Financial | User payment method storage |
+| 21 | payouts | Financial | Host payout records |
+| 22 | reviews | Review System | User-to-user reviews |
+| 23 | review_categories | Review System | Review aspect categories |
+| 24 | review_ratings | Review System | Category-specific rating values |
+| 25 | conversations | Communication | Message thread management |
+| 26 | messages | Communication | Individual message records |
+| 27 | notifications | System | User notification queue |
 
 ## 2. Entity Descriptions
 
 ### 2.1 Core User Entities
 
 #### **users**
-- **Purpose:** Central user entity for all platform users
-- **Key Attributes:** user_id (PK), email, password_hash, first_name, last_name, phone, date_of_birth, created_at, updated_at, is_active
-- **Business Rules:** Unique email, required phone verification
+- **Purpose:** Central user entity for all platform users with role tracking
+- **Key Attributes:** 
+  - user_id (PK), email, password_hash, first_name, last_name, phone, date_of_birth
+  - is_guest (BOOLEAN, DEFAULT TRUE), is_host (BOOLEAN, DEFAULT FALSE), is_admin (BOOLEAN, DEFAULT FALSE)
+  - created_at, updated_at, is_active
+- **Business Rules:** Unique email, required phone verification, supports multiple roles
+
+#### **guest_profiles**
+- **Purpose:** Guest-specific attributes and preferences
+- **Key Attributes:** 
+  - guest_profile_id (PK), user_id (FK → users.user_id, UNIQUE)
+  - preferred_price_range (VARCHAR(50)), preferred_property_types (JSON), travel_preferences (JSON)
+  - guest_verification_status (ENUM: 'unverified', 'email_verified', 'phone_verified', 'id_verified', 'fully_verified')
+  - verification_date (DATETIME), created_at (DATETIME)
+- **Business Rules:** One guest profile per user, created automatically on first booking
+- **Relationship:** 1:1 with users (one user can have zero or one guest profile)
+
+#### **host_profiles**
+- **Purpose:** Host-specific attributes and performance metrics
+- **Key Attributes:** 
+  - host_profile_id (PK), user_id (FK → users.user_id, UNIQUE)
+  - host_verification_status (ENUM: 'pending', 'verified', 'rejected', 'suspended')
+  - verification_date (DATETIME), host_since (DATETIME)
+  - response_rate (DECIMAL(5,2)), response_time_hours (INT), acceptance_rate (DECIMAL(5,2))
+  - host_rating (DECIMAL(3,2)), total_properties (INT, DEFAULT 0), superhost_status (BOOLEAN, DEFAULT FALSE)
+  - payout_method_id (FK → payment_methods.payment_method_id), tax_id (VARCHAR(50), ENCRYPTED)
+  - business_name (VARCHAR(255)), business_registration (VARCHAR(100)), created_at (DATETIME)
+- **Business Rules:** One host profile per user, created when user applies to become host
+- **Relationship:** 1:1 with users (one user can have zero or one host profile)
 
 #### **user_profiles**
 - **Purpose:** Extended user information and preferences
@@ -71,8 +99,9 @@ This Entity Relationship Model (ERM) represents a comprehensive database design 
 
 #### **properties**
 - **Purpose:** Property listings on the platform
-- **Key Attributes:** property_id (PK), host_id (FK), property_type_id (FK), title, description, address_id (FK), max_guests, bedrooms, bathrooms, size_sqm, created_at, updated_at, is_active
+- **Key Attributes:** property_id (PK), host_id (FK → host_profiles.host_profile_id), property_type_id (FK), title, description, address_id (FK), max_guests, bedrooms, bathrooms, size_sqm, created_at, updated_at, is_active
 - **Business Rules:** At least one photo required, valid location required
+- **Relationship:** One host profile can own many properties (1:N)
 
 #### **property_types**
 - **Purpose:** Categories of properties (apartment, house, villa, etc.)
@@ -115,8 +144,11 @@ This Entity Relationship Model (ERM) represents a comprehensive database design 
 
 #### **bookings**
 - **Purpose:** Reservation records between guests and properties
-- **Key Attributes:** booking_id (PK), guest_id (FK), property_id (FK), check_in_date, check_out_date, number_of_guests, total_amount, booking_status, created_at, confirmed_at
+- **Key Attributes:** 
+  - booking_id (PK), guest_profile_id (FK → guest_profiles.guest_profile_id), user_id (FK → users.user_id)
+  - property_id (FK), check_in_date, check_out_date, number_of_guests, total_amount, booking_status, created_at, confirmed_at
 - **Business Rules:** No overlapping bookings, valid date ranges
+- **Relationship:** One guest profile can make many bookings (1:N), user_id kept for audit trail
 
 #### **booking_status**
 - **Purpose:** Status tracking for bookings
@@ -342,16 +374,34 @@ This Entity Relationship Model (ERM) represents a comprehensive database design 
 - Personal data must be protected according to privacy laws
 - Access control based on user roles and permissions
 
-## 6. ER Model Diagram Requirements
+## 6. Design Rationale
 
-### 6.1 Diagram Specifications
+### 6.1 Role-Based Architecture
+This design allows users to have multiple roles simultaneously. A user can be both a guest (booking properties) and a host (listing properties). The role-specific tables store attributes relevant only to that role, while the base users table stores common attributes for all users.
+
+**Key Design Benefits:**
+- **Clear Separation:** Guest and host logic are isolated in separate profile tables
+- **Multi-Role Support:** Users can transition between roles or hold multiple roles
+- **Efficient Querying:** Role-specific queries can target appropriate profile tables
+- **Scalability:** Easy to add new role-specific attributes without affecting other roles
+- **Business Logic Clarity:** Property ownership explicitly tied to host_profiles, booking actions tied to guest_profiles
+
+**Implementation Strategy:**
+- **Profile Creation:** Guest profiles created automatically on first booking, host profiles created when user applies to become host
+- **Role Tracking:** Boolean flags in users table indicate active roles
+- **Context Awareness:** System tracks which role a user is performing in any given transaction
+- **Audit Trail:** User_id maintained in bookings for authentication and audit purposes
+
+## 7. ER Model Diagram Requirements
+
+### 7.1 Diagram Specifications
 - **Tool:** Draw.io or similar professional diagramming tool
 - **Notation:** Chen notation with entity boxes and relationship diamonds
 - **Cardinality:** Min-max notation (e.g., (1,1), (0,N), (1,N))
 - **Legend:** Complete notation explanation
 - **Resolution:** Minimum 300 DPI for submission
 
-### 6.2 Diagram Elements
+### 7.2 Diagram Elements
 - **Entities:** Rectangular boxes with entity names
 - **Attributes:** Listed within entity boxes
 - **Primary Keys:** Underlined or marked with (PK)
@@ -359,21 +409,21 @@ This Entity Relationship Model (ERM) represents a comprehensive database design 
 - **Relationships:** Diamond shapes with relationship names
 - **Cardinality:** Numbers on relationship lines
 
-## 7. Implementation Considerations
+## 8. Implementation Considerations
 
-### 7.1 Database Design Principles
+### 8.1 Database Design Principles
 - **Normalization:** Target 3NF (Third Normal Form)
 - **Performance:** Appropriate indexing strategy
 - **Scalability:** Design for growth and expansion
 - **Maintainability:** Clear naming conventions and documentation
 
-### 7.2 Technical Requirements
+### 8.2 Technical Requirements
 - **Database System:** MySQL, PostgreSQL, or SQL Server
 - **SQL Standard:** ANSI SQL compliance
 - **Character Set:** UTF-8 for international support
 - **Storage Engine:** InnoDB for transaction support
 
-### 7.3 Future Considerations
+### 8.3 Future Considerations
 - **Audit Trail:** Track all data changes
 - **Data Archival:** Long-term data retention strategy
 - **Performance Monitoring:** Query optimization and indexing

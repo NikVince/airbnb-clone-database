@@ -11,49 +11,132 @@
 
 The objective is to design and implement a comprehensive database system for an Airbnb-like platform that facilitates the connection between hosts and guests for short-term accommodation rentals. The system must handle user management, property listings, booking processes, payment transactions, and review systems while ensuring data integrity and supporting complex business operations.
 
-## 2. Roles and User Groups
+## 2. USER ROLES AND RESPONSIBILITIES
 
-### 2.1 Primary Roles
+### 2.1 Guest Role
 
-#### **Guests**
-- **Purpose:** Book and stay at accommodations
-- **Key Actions:**
-  - Create and manage user profiles
-  - Search and filter available properties
-  - Make booking requests and reservations
-  - Process payments for bookings
-  - Write reviews and ratings for hosts and properties
-  - Communicate with hosts through messaging system
-  - Manage booking history and preferences
+#### **Description**
+Users who search for, book, and stay at properties on the platform. Guests are the primary consumers of accommodation services.
 
-#### **Hosts**
-- **Purpose:** List and manage rental properties
-- **Key Actions:**
-  - Create and manage host profiles with verification
-  - List properties with detailed descriptions and photos
-  - Set pricing, availability, and house rules
-  - Manage booking requests and confirmations
-  - Process payouts and financial transactions
-  - Respond to guest reviews and ratings
-  - Communicate with guests through messaging system
+#### **Key Responsibilities**
+- **Search and Discovery:** Search and filter available properties based on location, dates, price, and preferences
+- **Booking Management:** Make booking requests, confirmations, and manage reservation details
+- **Payment Processing:** Process payments for bookings using various payment methods
+- **Communication:** Communicate with hosts through the platform's messaging system
+- **Review System:** Leave reviews and ratings for hosts and properties after stays
+- **Profile Management:** Maintain personal profiles, preferences, and travel history
+- **Verification:** Complete identity verification processes as required
 
-#### **Administrators**
-- **Purpose:** Manage platform operations and user support
-- **Key Actions:**
-  - Monitor user accounts and verification status
-  - Manage property listings and content moderation
-  - Handle disputes and customer support
-  - Generate reports and analytics
-  - Manage platform settings and policies
+#### **Required Permissions**
+- Access to property search and filtering
+- Ability to create and modify bookings
+- Payment processing capabilities
+- Messaging with hosts
+- Review submission after completed stays
+- Profile and preference management
 
-### 2.2 Secondary Roles
+#### **Relationship to Other Roles**
+- **Primary Interaction:** Books properties from Hosts
+- **Communication:** Direct messaging with Hosts
+- **Reviews:** Can review Hosts and properties
+- **Multi-Role Support:** Can simultaneously act as a Host (listing their own properties)
 
-#### **Property Managers**
-- **Purpose:** Manage multiple properties for hosts
-- **Key Actions:**
-  - Manage multiple property listings
-  - Coordinate with multiple hosts
-  - Handle bulk operations and reporting
+### 2.2 Host Role
+
+#### **Description**
+Users who list and manage rental properties on the platform. Hosts provide accommodation services to guests and generate revenue through property rentals.
+
+#### **Key Responsibilities**
+- **Property Management:** Create, edit, and manage property listings with detailed descriptions and photos
+- **Pricing Strategy:** Set dynamic pricing, availability calendars, and house rules
+- **Booking Management:** Respond to booking requests, confirmations, and manage reservations
+- **Guest Communication:** Communicate with guests through messaging and provide support
+- **Financial Management:** Process payouts, manage payment methods, and handle financial transactions
+- **Performance Management:** Maintain high standards, respond to reviews, and build reputation
+- **Verification:** Complete enhanced verification including identity and property ownership validation
+
+#### **Required Permissions**
+- Property listing creation and management
+- Booking request management and confirmation
+- Pricing and availability calendar management
+- Guest communication and support
+- Payout processing and financial management
+- Review response and reputation management
+
+#### **Relationship to Other Roles**
+- **Primary Interaction:** Provides properties to Guests
+- **Communication:** Direct messaging with Guests
+- **Reviews:** Can review Guests and receive reviews from Guests
+- **Multi-Role Support:** Can simultaneously act as a Guest (booking other properties)
+- **Delegation:** Can delegate property management to Property Managers
+
+### 2.3 Administrator Role
+
+#### **Description**
+Platform staff with system-wide management capabilities. Administrators ensure platform operations, user support, and policy enforcement.
+
+#### **Key Responsibilities**
+- **User Management:** Monitor user accounts, handle verification processes, and manage disputes
+- **Content Moderation:** Review and moderate property listings, reviews, and user-generated content
+- **Support Operations:** Handle customer support, resolve disputes, and provide technical assistance
+- **System Management:** Configure platform settings, manage policies, and monitor system performance
+- **Analytics and Reporting:** Generate reports, analyze platform metrics, and provide business intelligence
+- **Security Management:** Monitor security threats, handle account suspensions, and ensure compliance
+
+#### **Required Permissions**
+- Full system access with audit trail
+- User account management and modification
+- Content moderation and policy enforcement
+- Financial oversight and reporting
+- System configuration and monitoring
+- Security and compliance management
+
+#### **Relationship to Other Roles**
+- **Oversight:** Manages all user roles (Guests, Hosts, Property Managers)
+- **Support:** Provides support to all platform users
+- **Enforcement:** Enforces platform policies and resolves disputes
+- **Monitoring:** Monitors platform operations and user behavior
+
+### 2.4 Property Manager Role
+
+#### **Description**
+Professional managers who operate properties on behalf of hosts. Property Managers handle multiple properties and coordinate with hosts for efficient property management.
+
+#### **Key Responsibilities**
+- **Multi-Property Management:** Manage multiple property listings under delegated authority
+- **Guest Coordination:** Handle guest communications, check-ins, and support
+- **Maintenance Coordination:** Coordinate cleaning, maintenance, and property upkeep
+- **Host Reporting:** Provide regular reports to property owners on performance and issues
+- **Operational Management:** Handle day-to-day operations and guest services
+- **Financial Coordination:** Coordinate with hosts on pricing and financial matters
+
+#### **Required Permissions**
+- Property management under delegated authority
+- Guest communication and support
+- Maintenance and cleaning coordination
+- Host reporting and communication
+- Operational management capabilities
+
+#### **Relationship to Other Roles**
+- **Delegation:** Receives authority from Hosts to manage their properties
+- **Guest Interaction:** Direct communication with Guests on behalf of Hosts
+- **Host Coordination:** Regular communication and reporting to Hosts
+- **Administrative Oversight:** Subject to Administrator monitoring and policies
+
+### 2.5 Multi-Role Support
+
+#### **Critical Design Decision**
+Users can hold multiple roles simultaneously, which is fundamental to the Airbnb business model:
+
+- **Guest + Host:** A user can list properties as a Host while also booking other properties as a Guest
+- **Guest + Property Manager:** A user can manage properties for others while booking accommodations for themselves
+- **Role Transitions:** Users can transition between roles (e.g., start as Guest, become Host later)
+
+#### **Business Logic Implementation**
+- **Role Flags:** Each user has boolean flags indicating active roles (is_guest, is_host, is_admin)
+- **Profile Separation:** Role-specific attributes stored in separate profile tables
+- **Context Awareness:** System tracks which role a user is performing in any given transaction
+- **Permission Management:** Permissions granted based on active roles and context
 
 ## 3. Core Business Functions
 

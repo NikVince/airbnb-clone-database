@@ -20,13 +20,15 @@ The challenge was to design a comprehensive database system for an Airbnb-like p
 - **Business rules definition** ensuring data integrity and platform operations
 
 ### 2. Entity Relationship Model Design
-- **25 entities** designed to meet the minimum requirement of 20+ entities, including property_pricing for dynamic pricing management
+- **27 entities** designed to meet the minimum requirement of 20+ entities, including property_pricing for dynamic pricing management
+- **Role-based user architecture** with explicit guest and host profile separation
 - **3 triple relationships** implemented as required:
   - Booking-Payment-Property relationship
   - Review-Booking-User relationship  
   - Booking-Payment-Payout relationship (financial transaction chain)
 - **1 recursive relationship** for user-user interactions (host-guest dual roles)
 - **Comprehensive attribute design** with proper data types and constraints
+- **Multi-role support** allowing users to simultaneously act as guests and hosts
 
 ### 3. Database Architecture
 - **Normalized design** targeting 3NF (Third Normal Form)
@@ -37,10 +39,11 @@ The challenge was to design a comprehensive database system for an Airbnb-like p
 ## Key Design Decisions
 
 ### 1. User Management Strategy
-- **Centralized user entity** with role-based access control
-- **Separate profile management** for extended user information
+- **Centralized user entity** with role-based access control and multi-role support
+- **Role-specific profile separation** with guest_profiles and host_profiles entities
 - **Comprehensive verification system** for host and guest identity validation
 - **Flexible preference system** supporting user customization
+- **Multi-role architecture** allowing users to act as both guests and hosts simultaneously
 
 ### 2. Property Management Approach
 - **Hierarchical property categorization** with types and amenities
@@ -146,7 +149,9 @@ The challenge was to design a comprehensive database system for an Airbnb-like p
 
 ## Conclusion
 
-The database design successfully addresses all requirements for an Airbnb-like platform, providing a robust foundation for user management, property listings, booking processes, payment transactions, and review systems. The 25-entity model with triple relationships and recursive relationships meets all assignment requirements while ensuring scalability, security, and performance.
+The database design successfully addresses all requirements for an Airbnb-like platform, providing a robust foundation for user management, property listings, booking processes, payment transactions, and review systems. The 27-entity model with triple relationships and recursive relationships meets all assignment requirements while ensuring scalability, security, and performance.
+
+Following tutor feedback, we refined our user model to explicitly distinguish between guest and host roles while allowing users to fulfill both roles simultaneously. This role-based design approach ensures clear business logic separation while supporting the real-world scenario where users can both list properties as hosts and book accommodations as guests.
 
 The solution demonstrates a comprehensive understanding of database design principles, business requirements analysis, and technical implementation strategies. The modular architecture supports future growth and feature additions while maintaining data integrity and system performance.
 

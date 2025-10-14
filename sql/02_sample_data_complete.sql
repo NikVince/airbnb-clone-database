@@ -57,6 +57,24 @@ INSERT INTO user_preferences (user_id, preference_key, preference_value, updated
 (9, 'privacy_settings', '{"profile_visibility": "public", "show_phone": false}', '2023-09-22 12:15:00');
 
 -- ==============================================
+-- HOST PROFILES DATA
+-- ==============================================
+
+INSERT INTO host_profiles (user_id, host_verification_status, verification_date, host_since, response_rate, response_time_hours, acceptance_rate, host_rating, total_properties, superhost_status, business_name, business_registration, created_at) VALUES
+(1, 'verified', '2023-01-25 10:00:00', '2023-01-15 10:30:00', 95.50, 2, 88.75, 4.85, 3, TRUE, 'Downtown Properties LLC', 'LLC-2023-001', '2023-01-15 10:30:00'),
+(3, 'verified', '2023-03-15 09:00:00', '2023-03-10 09:15:00', 98.25, 1, 92.30, 4.92, 5, TRUE, 'Coastal Rentals Inc', 'INC-2023-002', '2023-03-10 09:15:00'),
+(5, 'verified', '2023-05-25 11:00:00', '2023-05-18 11:30:00', 89.75, 4, 85.20, 4.78, 2, FALSE, 'Mountain View Properties', 'PROP-2023-003', '2023-05-18 11:30:00'),
+(7, 'verified', '2023-07-13 08:00:00', '2023-07-08 08:00:00', 96.80, 1, 94.15, 4.88, 4, TRUE, 'Luxury Stays Co', 'LUX-2023-004', '2023-07-08 08:00:00'),
+(9, 'verified', '2023-09-27 12:00:00', '2023-09-22 12:15:00', 91.30, 3, 87.60, 4.65, 1, FALSE, 'Urban Living Rentals', 'URB-2023-005', '2023-09-22 12:15:00'),
+(12, 'verified', '2023-11-20 10:00:00', '2023-11-15 10:20:00', 97.45, 2, 90.85, 4.82, 3, TRUE, 'City Center Properties', 'CCP-2023-006', '2023-11-15 10:20:00'),
+(14, 'verified', '2024-01-25 09:00:00', '2024-01-20 09:30:00', 93.20, 2, 89.40, 4.71, 2, FALSE, 'Suburban Rentals', 'SUB-2024-007', '2024-01-20 09:30:00'),
+(16, 'verified', '2024-03-13 11:00:00', '2024-03-08 11:00:00', 88.90, 5, 83.25, 4.58, 1, FALSE, 'Historic Homes LLC', 'HIST-2024-008', '2024-03-08 11:00:00'),
+(18, 'verified', '2024-05-30 08:00:00', '2024-05-25 08:50:00', 95.15, 1, 91.70, 4.79, 4, TRUE, 'Modern Spaces Inc', 'MOD-2024-009', '2024-05-25 08:50:00'),
+(20, 'verified', '2024-07-35 12:00:00', '2024-07-30 12:40:00', 90.65, 3, 86.80, 4.62, 2, FALSE, 'Garden District Rentals', 'GDR-2024-010', '2024-07-30 12:40:00'),
+(22, 'verified', '2024-09-20 10:00:00', '2024-09-15 10:30:00', 96.40, 2, 93.15, 4.86, 3, TRUE, 'Executive Suites Co', 'EXEC-2024-011', '2024-09-15 10:30:00'),
+(24, 'verified', '2024-11-15 09:00:00', '2024-11-10 09:45:00', 87.80, 4, 82.50, 4.54, 1, FALSE, 'Riverside Properties', 'RIV-2024-012', '2024-11-10 09:45:00');
+
+-- ==============================================
 -- PROPERTY TYPES DATA
 -- ==============================================
 

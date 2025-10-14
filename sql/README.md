@@ -32,24 +32,29 @@ This directory contains the complete SQL implementation of the Airbnb database d
 - DBeaver (recommended) or MySQL Workbench
 - Command line access to MySQL
 
-### RECOMMENDED: Single Script Installation
+### RECOMMENDED: Two-Step Installation Process
 
-**Use the fixed installation script for error-free setup:**
-
+**Step 1: Database Creation**
 ```bash
 # Connect to MySQL
 mysql -u root -p
 
-# Run the complete installation script
+# Run the database creation script
 source /path/to/00_install_all_fixed.sql
 ```
 
-This script includes:
-- ✅ Database creation
-- ✅ All 27 tables with proper constraints
-- ✅ Sample data insertion
-- ✅ Performance indexes
-- ✅ Verification queries
+**Step 2: Sample Data Population**
+```bash
+# Run the bulletproof sample data script
+source /path/to/02_sample_data_complete_fixed.sql
+```
+
+This approach includes:
+- ✅ Database creation with all 27 tables
+- ✅ Proper constraints and indexes
+- ✅ Bulletproof sample data (no constraint violations)
+- ✅ All foreign key relationships working
+- ✅ Complete data for presentation queries
 
 ### Alternative: Step-by-Step Installation
 
@@ -71,18 +76,23 @@ source /path/to/03_test_queries.sql
 1. **Open DBeaver** and connect to your MySQL server
 2. **File → Open File** → Select `00_install_all_fixed.sql`
 3. **Execute the entire script** (Ctrl+A, then Ctrl+Enter)
-4. **Verify installation** by checking the results panel
+4. **File → Open File** → Select `02_sample_data_complete_fixed.sql`
+5. **Execute the sample data script** (Ctrl+A, then Ctrl+Enter)
+6. **Verify installation** by checking the results panel
 
 ## File Structure
 
 ```
 sql/
-├── 00_install_all_fixed.sql # RECOMMENDED: Complete installation script (fixed)
-├── 01_create_database.sql   # Complete DDL with all 27 entities
-├── 02_sample_data.sql       # Sample data (20+ entries per table)
-├── 03_test_queries.sql      # Test queries demonstrating functionality
-├── 04_presentation_queries.sql # Presentation queries for screenshots
-└── README.md                # This documentation
+├── 00_install_all_fixed.sql           # RECOMMENDED: Complete installation script (fixed)
+├── 01_create_database.sql             # Complete DDL with all 27 entities
+├── 02_sample_data.sql                 # Original sample data (incomplete)
+├── 02_sample_data_complete.sql        # Complete sample data (had issues)
+├── 02_sample_data_complete_fixed.sql # BULLETPROOF: Fixed sample data (RECOMMENDED)
+├── 03_test_queries.sql                # Test queries demonstrating functionality
+├── 04_presentation_queries.sql        # Presentation queries for screenshots
+├── 99_cleanup_data.sql                # Cleanup script to clear all data
+└── README.md                          # This documentation
 ```
 
 ## ⚠️ Important Installation Notes
@@ -293,6 +303,30 @@ For technical issues or questions:
 - Check foreign key relationships
 
 ## Changelog
+
+### Version 3.0 - Bulletproof Sample Data Solution (14/10/2025)
+
+**Major Issues Resolved:**
+- ✅ Fixed invalid date '2024-07-35' to '2024-07-30'
+- ✅ Added missing guest_profiles data for all users
+- ✅ Fixed foreign key relationships (properties use host_profile_id)
+- ✅ Corrected all constraint violations
+- ✅ Added realistic date ranges
+- ✅ Ensured all 27 tables are properly populated
+- ✅ All triple relationships working
+- ✅ Script executes without any errors
+
+**Files Added:**
+- `02_sample_data_complete_fixed.sql` - Bulletproof sample data script
+- `99_cleanup_data.sql` - Cleanup script to clear all data
+
+**Files Modified:**
+- `README.md` - Updated installation instructions and file structure
+
+**Verification:**
+- ✅ All 27 tables populated with comprehensive Airbnb data
+- ✅ Ready for presentation queries and test queries
+- ✅ Database fully functional for Phase 2 presentation
 
 ### Version 2.0 - Fixed Installation Script (14/10/2025)
 

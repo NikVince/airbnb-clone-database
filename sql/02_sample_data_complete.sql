@@ -30,14 +30,14 @@ INSERT INTO user_profiles (user_id, bio, profile_picture, language_preference, c
 
 INSERT INTO user_verification (user_id, verification_type, document_type, document_number, verification_status, verified_at, expires_at) VALUES
 (1, 'identity', 'passport', 'US123456789', 'verified', '2023-01-20 10:00:00', '2028-01-20 10:00:00'),
-(1, 'phone', 'phone', '+1234567890', 'verified', '2023-01-15 10:30:00', '2026-01-15 10:30:00'),
+(1, 'phone', 'utility_bill', 'UTIL123456789', 'verified', '2023-01-15 10:30:00', '2026-01-15 10:30:00'),
 (2, 'identity', 'drivers_license', 'DL987654321', 'verified', '2023-02-25 14:00:00', '2028-02-25 14:00:00'),
 (3, 'identity', 'passport', 'US987654321', 'verified', '2023-03-15 09:00:00', '2028-03-15 09:00:00'),
-(4, 'phone', 'phone', '+1234567893', 'verified', '2023-04-10 16:00:00', '2026-04-10 16:00:00'),
+(4, 'phone', 'utility_bill', 'UTIL987654321', 'verified', '2023-04-10 16:00:00', '2026-04-10 16:00:00'),
 (5, 'identity', 'passport', 'US456789123', 'verified', '2023-05-25 11:00:00', '2028-05-25 11:00:00'),
-(6, 'phone', 'phone', '+1234567895', 'verified', '2023-06-17 13:00:00', '2026-06-17 13:00:00'),
+(6, 'phone', 'utility_bill', 'UTIL456789123', 'verified', '2023-06-17 13:00:00', '2026-06-17 13:00:00'),
 (7, 'identity', 'passport', 'US789123456', 'verified', '2023-07-13 08:00:00', '2028-07-13 08:00:00'),
-(8, 'phone', 'phone', '+1234567897', 'verified', '2023-08-19 15:00:00', '2026-08-19 15:00:00'),
+(8, 'phone', 'utility_bill', 'UTIL789123456', 'verified', '2023-08-19 15:00:00', '2026-08-19 15:00:00'),
 (9, 'identity', 'passport', 'US321654987', 'verified', '2023-09-27 12:00:00', '2028-09-27 12:00:00');
 
 -- ==============================================

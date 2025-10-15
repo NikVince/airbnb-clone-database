@@ -3,7 +3,7 @@
 **Course:** Build a Data Mart in SQL (DLBDSPBDM01)  
 **Phase:** 2 - Database Implementation  
 **Student:** Nikolas Daniel Vincenti  
-**Date:** 14/10/2025  
+**Date:** 15/10/2025  
 
 ## Overview
 
@@ -32,21 +32,15 @@ This directory contains the complete SQL implementation of the Airbnb database d
 - DBeaver (recommended) or MySQL Workbench
 - Command line access to MySQL
 
-### RECOMMENDED: Two-Step Installation Process
+### RECOMMENDED: Single-Step Installation Process
 
-**Step 1: Database Creation**
+**Complete Installation**
 ```bash
 # Connect to MySQL
 mysql -u root -p
 
-# Run the database creation script
-source /path/to/00_install_all_fixed.sql
-```
-
-**Step 2: Sample Data Population**
-```bash
-# Run the bulletproof sample data script
-source /path/to/02_sample_data_complete_fixed.sql
+# Run the complete installation script (includes database creation and sample data)
+source /path/to/Vincenti-Nikolas_9211929_DLBDSPBDM01_P2_S_CompleteInstallation.sql
 ```
 
 This approach includes:
@@ -56,48 +50,42 @@ This approach includes:
 - ✅ All foreign key relationships working
 - ✅ Complete data for presentation queries
 
-### Alternative: Step-by-Step Installation
+### Alternative: Presentation Queries
 
-If you prefer to run scripts individually:
+For testing and presentation purposes:
 
 ```bash
-# Step 1: Database Creation
-source /path/to/01_create_database.sql
-
-# Step 2: Sample Data Population
-source /path/to/02_sample_data.sql
-
-# Step 3: Test Database Functionality
-source /path/to/03_test_queries.sql
+# Run presentation queries to demonstrate database functionality
+source /path/to/Vincenti-Nikolas_9211929_DLBDSPBDM01_P2_S_PresentationQueries.sql
 ```
 
 ### DBeaver Installation (Recommended)
 
 1. **Open DBeaver** and connect to your MySQL server
-2. **File → Open File** → Select `00_install_all_fixed.sql`
+2. **File → Open File** → Select `Vincenti-Nikolas_9211929_DLBDSPBDM01_P2_S_CompleteInstallation.sql`
 3. **Execute the entire script** (Ctrl+A, then Ctrl+Enter)
-4. **File → Open File** → Select `02_sample_data_complete_fixed.sql`
-5. **Execute the sample data script** (Ctrl+A, then Ctrl+Enter)
-6. **Verify installation** by checking the results panel
+4. **Verify installation** by checking the results panel
+5. **Optional:** Run presentation queries for testing
 
 ## File Structure
 
 ```
 sql/
-├── 00_install_all_fixed.sql           # RECOMMENDED: Complete installation script (fixed)
-├── 01_create_database.sql             # Complete DDL with all 27 entities
-├── 02_sample_data.sql                 # Original sample data (incomplete)
-├── 02_sample_data_complete.sql        # Complete sample data (had issues)
-├── 02_sample_data_complete_fixed.sql # BULLETPROOF: Fixed sample data (RECOMMENDED)
-├── 03_test_queries.sql                # Test queries demonstrating functionality
-├── 04_presentation_queries.sql        # Presentation queries for screenshots
-├── 99_cleanup_data.sql                # Cleanup script to clear all data
+├── phase2_submitted/                  # Final submission files
+│   ├── Vincenti-Nikolas_9211929_DLBDSPBDM01_P2_S_CompleteInstallation.sql
+│   └── Vincenti-Nikolas_9211929_DLBDSPBDM01_P2_S_PresentationQueries.sql
+├── dev/                               # Development files
+│   ├── 00_install_all_fixed.sql      # Development installation script
+│   ├── 01_create_database.sql         # Database creation only
+│   ├── 02_sample_data_complete_fixed.sql # Sample data only
+│   ├── 03_test_queries.sql            # Test queries
+│   └── 04_presentation_queries.sql     # Presentation queries
 └── README.md                          # This documentation
 ```
 
 ## ⚠️ Important Installation Notes
 
-**RECOMMENDED APPROACH:** Use `00_install_all_fixed.sql` for a complete, error-free installation.
+**RECOMMENDED APPROACH:** Use the submitted installation script for a complete, error-free installation.
 
 ### Known Issues Fixed
 

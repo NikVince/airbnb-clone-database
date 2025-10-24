@@ -1,0 +1,7 @@
+"metric_type","status_name","booking_count"
+BOOKING_STATUS,confirmed,20
+BOOKING_STATUS,cancelled,0
+BOOKING_STATUS,completed,0
+BOOKING_STATUS,no_show,0
+BOOKING_STATUS,pending,0
+BOOKING_STATUS,refunded,0

@@ -1,0 +1,11 @@
+"metric_type","type_name","property_count"
+PROPERTY_TYPES,Apartment,9
+PROPERTY_TYPES,House,9
+PROPERTY_TYPES,Villa,2
+PROPERTY_TYPES,Cabin,0
+PROPERTY_TYPES,Castle,0
+PROPERTY_TYPES,Condo,0
+PROPERTY_TYPES,Loft,0
+PROPERTY_TYPES,Studio,0
+PROPERTY_TYPES,Townhouse,0
+PROPERTY_TYPES,Treehouse,0

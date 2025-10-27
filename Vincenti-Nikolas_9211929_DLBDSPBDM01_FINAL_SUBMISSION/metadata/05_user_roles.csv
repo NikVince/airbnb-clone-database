@@ -1,0 +1,4 @@
+"metric_type","role_type","user_count"
+USER_ROLES,Guest & Host,12
+USER_ROLES,Guest Only,12
+USER_ROLES,Admin Only,1
